@@ -98,7 +98,7 @@ impl eframe::App for SoftwareCenterApp {
             });
         });
 
-       egui::Panel::left("installed_panel")
+        egui::Panel::left("installed_panel")
             .resizable(true)
             .default_size(300.0)
             .show(ctx, |ui| {
@@ -182,7 +182,8 @@ impl eframe::App for SoftwareCenterApp {
         // progress lines show up as they arrive instead of only after
         // the next click/keypress. This just schedules a wake-up — it
         // doesn't spin a busy-loop between them.
-        ui.ctx().request_repaint_after(std::time::Duration::from_millis(200));
+        ui.ctx()
+            .request_repaint_after(std::time::Duration::from_millis(200));
     }
 }
 
