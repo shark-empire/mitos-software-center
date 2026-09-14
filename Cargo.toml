@@ -1,0 +1,36 @@
+[package]
+name = "mitos-software-center"
+version = "0.1.0"
+edition = "2021"
+authors = ["Shark <babor3331@gmail.com>"]
+license = "MIT"
+description = "A graphical package manager for MITOS — install, remove, and update software through mitos-pkgd, without a terminal."
+repository = "https://github.com/shark-empire/mitos-software-center"
+
+[dependencies]
+# The whole reason this crate can be this small: mitos-pkg's daemon
+# module already does the hard part (the wire protocol, progress
+# streaming, error types). This is a UI on top of DaemonClient, nothing
+# more — see src/daemon_worker.rs.
+mitos-pkg = { git = "https://github.com/shark-empire/mitos-pkg" }
+
+# default-features off + explicit "wayland" (no "x11"): mitos-gui is a
+# Wayland compositor, not X11 — pulling in eframe's X11 backend and its
+# libx11/libxcb dependencies would be dead weight on MITOS specifically,
+# even though upstream eframe defaults to supporting both for broad
+# Linux compatibility. "glow" (OpenGL) rather than "wgpu" (Vulkan/Metal/
+# DX12/GL) because glow's dependency footprint is smaller and MITOS's
+# GPU driver story is unproven enough that the more conservative,
+# widely-supported option is the safer default for now — see README.md.
+eframe = { version = "0.36", default-features = false, features = [
+    "glow",
+    "wayland",
+    "default_fonts",
+] }
+egui = "0.36"
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true
