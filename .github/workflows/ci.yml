@@ -1,4 +1,4 @@
-name: TEST MITOS-software-center
+name: TEST-MITOS-software-center
 
 on: [push, pull_request]
 
