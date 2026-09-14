@@ -145,7 +145,7 @@ fn run_command(
         }
         AppCommand::Remove(name) => {
             let removed = client
-                .remove(&name, false, emit_progress)
+                .remove(&name, false, false, emit_progress)
                 .map_err(|e| e.to_string())?;
             Ok(format!("removed {}", removed.join(", ")))
         }
