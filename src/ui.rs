@@ -82,7 +82,7 @@ impl eframe::App for SoftwareCenterApp {
     fn ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
         self.drain_events();
 
-        egui::TopBottomPanel::top("toolbar").show(ctx, |ui| {
+        egui::Panel::top("toolbar").show(ui, |ui| {
             ui.horizontal(|ui| {
                 ui.heading("MITOS Software Center");
                 ui.add_space(16.0);
@@ -101,7 +101,7 @@ impl eframe::App for SoftwareCenterApp {
         egui::Panel::left("installed_panel")
             .resizable(true)
             .default_size(300.0)
-            .show(ctx, |ui| {
+            .show(ui, |ui| {
                 ui.heading("Installed");
                 egui::ScrollArea::vertical()
                     .id_salt("installed_scroll")
