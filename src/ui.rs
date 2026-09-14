@@ -79,7 +79,7 @@ impl SoftwareCenterApp {
 }
 
 impl eframe::App for SoftwareCenterApp {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+    fn ui(&mut self, ui: &mut egui::Ui, frame: &mut eframe::Frame) {
         self.drain_events();
 
         egui::TopBottomPanel::top("toolbar").show(ctx, |ui| {
@@ -98,7 +98,7 @@ impl eframe::App for SoftwareCenterApp {
             });
         });
 
-        egui::SidePanel::left("installed_panel")
+        egui::Panel::left("installed_panel")
             .resizable(true)
             .default_width(300.0)
             .show(ctx, |ui| {
@@ -124,7 +124,7 @@ impl eframe::App for SoftwareCenterApp {
                     });
             });
 
-        egui::CentralPanel::default().show(ctx, |ui| {
+        egui::CentralPanel::default().show(ui, |ui| {
             ui.heading("Find software");
             ui.horizontal(|ui| {
                 let response = ui.text_edit_singleline(&mut self.search_query);
